@@ -1,5 +1,4 @@
 //方法一：
-***
 class Solution {
     public int arrayPairSum(int[] nums) {
         Arrays.sort(nums);//jdk8中自带排序算法
