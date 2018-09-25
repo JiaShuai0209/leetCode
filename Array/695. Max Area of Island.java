@@ -2,31 +2,29 @@
 
 //错误方法
 class Solution {
-    int res = 0,tmp = 0;
-    public int maxAreaOfIsland(int[][] grid,int i,int j) {
-        return area(grid,0,0);
-    }
-    public int area(int[][] grid,int i, int j){
-        int[][] count = new int[grid.length][grid[0].length];
-        
-                if(count[i][j] == 0)
-                    if(grid[i][j] == 1)
-                        tmp++;
-                if(i - 1 >= 0)
-                    area(grid,i - 1,j);
-                if(i + 1 <= grid.length-1)
-                    area(grid,i + 1,j);
-                if(j - 1 >= 0)
-                    area(grid,i,j - 1);
-                if(j + 1 <= grid[0].length)
-                    area(grid,i,j + 1);
-                    
-                if(tmp > res)
-                    res=tmp;
-                tmp = 0; 
-                count[i][j] = 1;
-      
+    int[][] grid;
+    boolean[][] visit;
+    
+    public int maxAreaOfIsland(int[][] grid) {
+        int res = 0;
+        int tmp = 0;
+        this.grid = grid;
+        visit = new boolean[grid.length][grid[0].length];
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                //错误步骤，结果输出为0，因为area(i,j)跑了两遍，第二遍时答案为0
+                if(res < area(i,j))
+                    res = area(i,j);
+            }
+        }
         return res;
+    }
+    
+    public int area(int r, int c){
+        if(r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || visit[r][c] || grid[r][c] == 0)
+            return 0;
+        visit[r][c] = true;
+        return (1 + area(r-1,c) + area(r+1,c) + area(r,c-1) + area(r,c+1));
     }
 }
 
