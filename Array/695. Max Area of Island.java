@@ -51,6 +51,6 @@ class Solution {
                 ans = Math.max(ans, area(r, c));
             }
         }
-        return ans;
+        return ans; 
     }
 }
